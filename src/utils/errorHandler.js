@@ -46,7 +46,7 @@ export const formatValidationErrors = (error) => {
   const formattedErrors = {};
 
   Object.entries(errors).forEach(([field, messages]) => {
-    const lowerField = field.toLowerCase();
+    const lowerField = field;
     formattedErrors[lowerField] = Array.isArray(messages) 
       ? messages[0] 
       : messages;

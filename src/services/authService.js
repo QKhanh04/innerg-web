@@ -8,13 +8,19 @@ const authService = {
   },
 
   // Login user
-  async login(emailOrUsername, password) {
+  async login({ emailOrUsername, password }) {
     const response = await api.post('/auth/login', {
       emailOrUsername,
       password,
     });
 
     // Return token and user info (will be stored in memory by AuthContext)
+    return response.data;
+  },
+
+  // Login with Google
+  async loginWithGoogle(idToken) {
+    const response = await api.post('/auth/google-login', { idToken });
     return response.data;
   },
 
@@ -41,13 +47,8 @@ const authService = {
 
   // Resend verification email
   async resendVerificationEmail(email) {
-    const response = await api.post('/auth/resend-verification-email', 
-      JSON.stringify(email),
-      {
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      }
+    const response = await api.post('/auth/resend-verification-email',
+      { email }
     );
     return response.data;
   },

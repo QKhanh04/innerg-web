@@ -42,7 +42,6 @@ const processQueue = (error, token = null) => {
 // Setup token handlers (called from AuthContext)
 export const setupInterceptors = (getTokenFn, refreshTokenFn) => {
   
-
   getAccessToken = getTokenFn;
   refreshAccessToken = refreshTokenFn;
 };

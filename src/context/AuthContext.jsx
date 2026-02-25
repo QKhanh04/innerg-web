@@ -55,8 +55,8 @@ export const AuthProvider = ({ children }) => {
     initAuth();
   }, []);
 
-  const login = async (emailOrUsername, password) => {
-    const data = await authService.login(emailOrUsername, password);
+  const login = async (credentials) => {
+    const data = await authService.login(credentials);
     
     // Store token in memory
     setAccessToken(data.token);
@@ -65,6 +65,16 @@ export const AuthProvider = ({ children }) => {
       email: data.email,
     });
     
+    return data;
+  };
+
+  const loginWithGoogle = async (idToken) => {
+    const data = await authService.loginWithGoogle(idToken);
+    setAccessToken(data.token);
+    setUser({
+      userName: data.userName,
+      email: data.email,
+    });
     return data;
   };
 
@@ -112,6 +122,7 @@ export const AuthProvider = ({ children }) => {
     user,
     loading,
     login,
+    loginWithGoogle,
     register,
     logout,
     verifyEmail,
